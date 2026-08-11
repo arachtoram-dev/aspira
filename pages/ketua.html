@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#14213d">
+  <title>Dashboard Ketua — ASPIRA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-topbar">
+      <a class="brand brand-link" href="../index.html">
+        <div class="brand-mark brand-mark-image"><img src="../assets/aspira-brand-mark.png" alt="ASPIRA"></div>
+        <div>
+          <div class="brand-name">ASPIRA</div>
+          <div class="brand-subtitle">Dashboard Ketua</div>
+        </div>
+      </a>
+      <div class="admin-actions">
+        <div class="notification-wrap">
+          <button id="notificationBtn" class="notification-btn" type="button" aria-label="Notifikasi pengaduan baru" aria-expanded="false">
+            <span class="notification-bell">♢</span>
+            <span id="notificationCount" class="notification-count" hidden>0</span>
+          </button>
+          <div id="notificationPanel" class="notification-panel" hidden>
+            <div class="notification-head">
+              <div>
+                <strong>Notifikasi</strong>
+                <span id="notificationSummary">Belum ada pengaduan baru.</span>
+              </div>
+              <button id="markNotificationsRead" type="button">Tandai dibaca</button>
+            </div>
+            <div id="notificationList" class="notification-list"></div>
+          </div>
+        </div>
+        <span class="admin-badge">KETUA</span>
+        <button id="logoutBtn" class="logout-btn" type="button">Keluar</button>
+      </div>
+    </header>
+
+    <section class="admin-page">
+      <div class="admin-heading">
+        <span class="eyebrow">RINGKASAN</span>
+        <h1>Dashboard Ketua</h1>
+        <p>Pantau pengaduan anggota dan tindak lanjutnya dari satu tempat.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><span>Total Pengaduan</span><strong id="statTotal">0</strong></div>
+        <div class="stat-card stat-new"><span>Baru</span><strong id="statNew">0</strong></div>
+        <div class="stat-card stat-process"><span>Diproses</span><strong id="statProcess">0</strong></div>
+        <div class="stat-card stat-done"><span>Selesai</span><strong id="statDone">0</strong></div>
+      </div>
+
+      <section class="analytics-section">
+        <div class="action-alert" id="actionAlert" hidden>
+          <div class="action-alert-icon">!</div>
+          <div>
+            <strong id="actionAlertTitle">Perlu Tindakan</strong>
+            <span id="actionAlertText">0 pengaduan menunggu tindak lanjut.</span>
+          </div>
+          <button id="actionAlertBtn" type="button">Lihat →</button>
+        </div>
+
+        <div class="analytics-grid">
+          <section class="analytics-card">
+            <div class="analytics-card-head">
+              <div>
+                <span class="analytics-label">KATEGORI</span>
+                <h3>Kategori Pengaduan</h3>
+              </div>
+            </div>
+            <div id="categoryStats" class="bar-list"></div>
+          </section>
+
+          <section class="analytics-card">
+            <div class="analytics-card-head">
+              <div>
+                <span class="analytics-label">DEPARTEMEN</span>
+                <h3>Pengaduan per Departemen</h3>
+              </div>
+            </div>
+            <div id="departmentStats" class="bar-list"></div>
+          </section>
+        </div>
+
+        <section class="analytics-card trend-card">
+          <div class="analytics-card-head">
+            <div>
+              <span class="analytics-label">AKTIVITAS</span>
+              <h3>Pengaduan 7 Hari Terakhir</h3>
+            </div>
+            <span id="trendTotal" class="trend-total">0 laporan</span>
+          </div>
+          <div id="trendChart" class="trend-chart"></div>
+        </section>
+      </section>
+
+<section class="role-panel">
+  <div class="role-panel-head">
+    <div>
+      <span class="analytics-label">MANAJEMEN PENGURUS</span>
+      <h2>Akun Pengurus</h2>
+      <p>Ketua dapat memantau dan menonaktifkan akun Pengurus. Akun Ketua dan Developer tidak ditampilkan di sini.</p>
+    </div>
+    <button id="refreshUsers" type="button" class="secondary-btn">Refresh</button>
+  </div>
+  <div class="ketua-account-summary">
+    <div><strong id="ketuaActiveCount">0</strong><span>Pengurus Aktif</span></div>
+    <div><strong id="ketuaInactiveCount">0</strong><span>Pengurus Nonaktif</span></div>
+  </div>
+  <div id="userList" class="user-list"></div>
+</section>
+
+      <div class="admin-toolbar">
+        <div>
+          <h2>Daftar Pengaduan</h2>
+          <span id="reportCount">0 pengaduan</span>
+        </div>
+        <div class="admin-controls">
+          <select id="statusFilter">
+            <option value="all">Semua status</option>
+            <option value="Diterima">Diterima</option>
+            <option value="Dilihat">Dilihat</option>
+            <option value="Diproses">Diproses</option>
+            <option value="Selesai">Selesai</option>
+          </select>
+          <select id="sortFilter">
+            <option value="newest">Terbaru</option>
+            <option value="oldest">Terlama</option>
+            <option value="title">Judul A–Z</option>
+          </select>
+        </div>
+      </div>
+      <div class="admin-search">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="reportSearch" type="search" placeholder="Cari kode, judul, NPK, departemen, atau section..." autocomplete="off">
+        <button id="clearSearch" type="button" hidden>×</button>
+      </div>
+
+      <div id="adminList" class="admin-list"></div>
+    </section>
+  </main>
+
+  <script type="module" src="../js/admin.js"></script><script type="module" src="../js/ketua.js"></script><script type="module" src="../js/admin-logout.js"></script>
+</body>
+</html>

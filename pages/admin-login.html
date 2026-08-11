@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#14213d"><title>Login Internal — ASPIRA</title>
+<link rel="stylesheet" href="../css/style.css"></head>
+<body>
+<main class="login-shell"><div class="login-card">
+<a class="login-brand" href="../index.html"><div class="brand-mark brand-mark-image"><img src="../assets/aspira-brand-mark.png" alt="ASPIRA"></div><div><div class="brand-name">ASPIRA</div><div class="brand-subtitle">Sistem Pengaduan Serikat</div></div></a>
+<div class="login-heading"><span class="eyebrow">AREA INTERNAL</span><h1>Selamat datang.</h1><p>Pastikan data yang dimasukkan sesuai</p></div>
+<form id="loginForm" class="login-form">
+<label>Email / Username<input id="username" autocomplete="username" required placeholder="Masukkan email atau username"></label>
+<label>Password<div class="password-wrap"><input id="password" type="password" autocomplete="current-password" required placeholder="Masukkan password"><button type="button" id="togglePassword">Lihat</button></div></label>
+<div id="loginError" class="login-error" hidden></div>
+<button class="submit-btn" type="submit">Masuk ke Dashboard <span>→</span></button>
+</form>
+
+<a class="login-back" href="../index.html">← Kembali ke halaman utama</a>
+</div></main>
+<script type="module" src="../js/admin-login.js"></script></body></html>

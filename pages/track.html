@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#14213d">
+  <title>Track Laporan — ASPIRA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar"><a class="brand brand-link" href="../index.html"><div class="brand-mark brand-mark-image"><img src="../assets/aspira-brand-mark.png" alt="ASPIRA"></div><div><div class="brand-name">ASPIRA</div><div class="brand-subtitle">Sistem Pengaduan Serikat</div></div></a></header>
+    <section class="page active">
+      <a class="back-btn" href="../index.html">← Kembali</a>
+      <div class="page-heading"><span class="eyebrow">PELACAKAN</span><h2>Track Laporan</h2><p>Masukkan kode unik yang Anda terima setelah mengirim laporan.</p></div>
+      <div class="track-card">
+        <label>Kode Laporan<input id="trackCode" class="code-input" maxlength="12" placeholder="ASP-7KQ2M8"></label>
+        <button class="submit-btn" id="trackBtn">Lacak Laporan <span>→</span></button>
+      </div>
+      <div id="trackLoading" class="track-loading" hidden aria-live="polite">
+          <div class="loader" aria-hidden="true"></div>
+          <span>Mencari pengaduan...</span>
+        </div>
+        <div id="trackResult" class="track-result hidden"></div>
+    </section>
+  </main>
+  <script type="module" src="../js/track.js"></script>
+</body>
+</html>

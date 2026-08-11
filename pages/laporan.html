@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#14213d">
+  <title>Buat Laporan — ASPIRA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar"><a class="brand brand-link" href="../index.html"><div class="brand-mark brand-mark-image"><img src="../assets/aspira-brand-mark.png" alt="ASPIRA"></div><div><div class="brand-name">ASPIRA</div><div class="brand-subtitle">Sistem Pengaduan Serikat</div></div></a></header>
+    <section class="page active">
+      <a class="back-btn" href="../index.html">← Kembali</a>
+      <div class="page-heading">
+        <span class="eyebrow">PENGADUAN BARU</span>
+        <h2>Buat Laporan</h2>
+        <p>Isi informasi di bawah dengan jelas agar pengurus dapat menindaklanjuti laporan Anda.</p>
+      </div>
+
+      <form id="reportForm" class="form-card">
+  <label>Nama <span>*</span>
+    <input id="name" required placeholder="Masukkan nama lengkap">
+  </label>
+
+  <label>NPK / Nomor Induk Karyawan <span>*</span>
+    <input type="number" id="npk" required inputmode="numeric" placeholder="Masukkan NPK">
+  </label>
+
+  <label>Departemen <span>*</span>
+    <select id="department" required>
+      <option value="">Pilih departemen</option>
+    </select>
+  </label>
+
+  <label>Section <span>*</span>
+    <select id="section" required disabled>
+      <option value="">Pilih departemen terlebih dahulu</option>
+    </select>
+    <div class="file-hint">Pilihan section akan menyesuaikan departemen.</div>
+  </label>
+
+  <label>Kategori <span>*</span>
+    <select id="category" required>
+      <option value="">Pilih kategori</option>
+      <option>Upah / Gaji</option>
+      <option>Jam Kerja / Lembur</option>
+      <option>K3</option>
+      <option>Fasilitas Kerja</option>
+      <option>Hubungan Kerja</option>
+      <option>Atasan / Perlakuan Kerja</option>
+      <option>Catering</option>
+      <option>Lainnya</option>
+    </select>
+  </label>
+
+  <label>Judul <span>*</span>
+    <input id="title" required maxlength="100" placeholder="Tulis singkat masalahnya">
+  </label>
+
+  <label>Ceritakan kejadiannya <span>*</span>
+    <textarea id="description" required rows="7" placeholder="Ceritakan apa yang terjadi. Kalau bisa, sertakan waktu, tempat, dan pihak yang terkait."></textarea>
+  </label>
+
+  <label>Tanggal kejadian <small>(opsional)</small>
+    <input id="incidentDate" type="date">
+  </label>
+
+  <label>Lampiran foto <small>(opsional)</small>
+    <input id="attachment" type="file" accept="image/*" capture="environment">
+    <div class="file-hint">Bisa tambahkan foto sebagai bukti pendukung.</div>
+  </label>
+
+  <label class="privacy-option">
+    <input id="confidential" type="checkbox">
+    <span class="checkmark"></span>
+    <span class="privacy-copy">
+      <strong>Saya ingin identitas saya dirahasiakan</strong>
+      <small>Identitas tetap tersimpan di sistem, tetapi tidak ditampilkan secara terbuka.</small>
+    </span>
+  </label>
+
+  <button class="submit-btn" type="submit">Kirim Pengaduan <span>→</span></button>
+</form>
+    </section>
+  </main>
+  <script type="module" src="../js/laporan.js"></script>
+</body>
+</html>

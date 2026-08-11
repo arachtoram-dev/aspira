@@ -1,0 +1,19 @@
+{
+  "rules": {
+    "reports": {
+      ".read": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'pengurus' || root.child('users').child(auth.uid).child('role').val() === 'ketua' || root.child('users').child(auth.uid).child('role').val() === 'developer')",
+      "$code": {
+        ".read": "$code.matches(/^ASP-[A-Z0-9]{8}$/)",
+        ".write": "(!data.exists() && newData.exists() && $code.matches(/^ASP-[A-Z0-9]{8}$/)) || (auth != null && (root.child('users').child(auth.uid).child('role').val() === 'pengurus' || root.child('users').child(auth.uid).child('role').val() === 'ketua' || root.child('users').child(auth.uid).child('role').val() === 'developer')))",
+        ".validate": "newData.hasChildren(['code','name','npk','department','section','category','title','description','status','createdAt','timeline']) && newData.child('code').val() === $code && newData.child('code').isString() && newData.child('status').val().matches(/^(Diterima|Dilihat|Diproses|Selesai)$/)"
+      }
+    },
+    "users": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'ketua' || root.child('users').child(auth.uid).child('role').val() === 'developer')",
+        ".write": "auth != null && ((auth.uid === $uid && newData.child('role').val() === data.child('role').val()) || (root.child('users').child(auth.uid).child('role').val() === 'developer' && newData.child('role').isString() && newData.child('role').val().matches(/^(pengurus|ketua|developer)$/)) || (root.child('users').child(auth.uid).child('role').val() === 'ketua' && data.exists() && data.child('role').val() === 'pengurus' && newData.child('role').val() === 'pengurus'))"
+      },
+      ".read": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'ketua' || root.child('users').child(auth.uid).child('role').val() === 'developer')"
+    }
+  }
+}
