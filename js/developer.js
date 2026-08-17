@@ -34,7 +34,7 @@ list.querySelectorAll(".account-card-edit").forEach(b=>b.addEventListener("click
 }
 function card([uid,d]){
  const a=d?.active!==false,role=d?.role||"-",initials=(d?.name||"?").trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase();
- return `<div class="account-card ${a?"":"is-inactive"}"><div class="account-avatar">${esc(initials)}</div><div class="account-card-main"><div class="account-card-name">${esc(d?.name||"Nama belum diatur")}</div><div class="account-card-email">${esc(d?.email||"Email belum diatur")}</div><div class="account-card-meta"><span class="role-pill">${esc(role)}</span><span class="account-state ${a?"active":"inactive"}">${a?"AKTIF":"NONAKTIF"}</span></div><small>UID: ${esc(uid)}</small></div><div class="account-card-actions">
+ return `<div class="account-card ${a?"":"is-inactive"}"><div class="account-avatar">${esc(initials)}</div><div class="account-card-main"><div class="account-card-name">${esc(d?.name||"Nama belum diatur")}</div><div class="account-card-email">${esc(d?.email||"Email belum diatur")}</div><div class="account-card-meta"><span class="role-pill role-${String(role).toLowerCase()}">${esc(role)}</span><span class="account-state ${a?"active":"inactive"}">${a?"AKTIF":"NONAKTIF"}</span></div><small>UID: ${esc(uid)}</small></div><div class="account-card-actions">
   <button class="account-card-edit" type="button" data-uid="${esc(uid)}">Edit Profil</button>
   <button class="account-card-action" type="button" data-uid="${esc(uid)}">Kelola</button>
 </div></div>`;

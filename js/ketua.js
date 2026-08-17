@@ -44,7 +44,7 @@ function card(uid,data){
     <div class="ketua-account-main">
       <strong>${esc(name)}</strong>
       <span>${esc(email)}</span>
-      <small>UID: ${esc(uid)}</small>
+  
       <div class="ketua-account-meta">
         <span class="role-pill">PENGURUS</span>
         <span class="account-state ${active?"active":"inactive"}">${active?"AKTIF":"NONAKTIF"}</span>

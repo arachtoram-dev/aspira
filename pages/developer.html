@@ -1,80 +1,382 @@
+
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Developer Console — ASPIRA</title><link rel="stylesheet" href="../css/style.css"></head>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Developer Console — ASPIRA</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+
 <body>
 <main class="admin-shell">
-<header class="admin-topbar"><a class="brand brand-link" href="../index.html"><div class="brand-mark brand-mark-image"><img src="../assets/aspira-brand-mark.png" alt="ASPIRA"></div><div><div class="brand-name">ASPIRA</div><div class="brand-subtitle">Developer Console</div></div></a>
-<div class="admin-actions"><span class="admin-badge">DEVELOPER • SUPER ADMIN</span><button id="logoutBtn" class="logout-btn" type="button">Keluar</button></div></header>
-<section class="admin-page">
-<div class="admin-heading"><span class="eyebrow">ADMINISTRASI SISTEM</span><h1>Developer Console</h1><p>Kontrol teknis dan pemeriksaan sistem ASPIRA.</p></div>
-<div class="stats-grid"><div class="stat-card"><span>Total Pengaduan</span><strong id="devTotal">0</strong></div><div class="stat-card"><span>Pengguna Internal</span><strong id="devUsers">0</strong></div><div class="stat-card"><span>Database</span><strong>ONLINE</strong></div><div class="stat-card"><span>Auth</span><strong>ONLINE</strong></div></div>
-<section class="role-panel"><div class="role-panel-head"><div><span class="analytics-label">PENGGUNA</span><h2>Data Pengguna Internal</h2><p>Manajemen penuh nama, email, role, dan akses internal ASPIRA.</p></div><button id="refreshUsers" type="button" class="secondary-btn">Refresh</button></div>
-<div class="account-create">
-  <div class="account-create-head">
+
+<header class="admin-topbar">
+  <a class="brand brand-link" href="../index.html">
+    <div class="brand-mark brand-mark-image">
+      <img src="../assets/aspira-brand-mark.png" alt="ASPIRA">
+    </div>
+
     <div>
-      <strong>Buat akun internal baru</strong>
-      <span>Akun dibuat di Firebase Authentication sekaligus disimpan ke data pengguna ASPIRA.</span>
+      <div class="brand-name">ASPIRA</div>
+      <div class="brand-subtitle">Developer Console</div>
     </div>
-    <span class="role-pill">SUPER ADMIN</span>
-  </div>
-  <div class="account-form-grid">
-    <input id="newUserName" placeholder="Nama lengkap" autocomplete="name">
-    <input id="newUserEmail" placeholder="Email login" type="email" autocomplete="email">
-    <input id="newUserPassword" placeholder="Password sementara (min. 6 karakter)" type="password" autocomplete="new-password">
-    <select id="newUserRole">
-      <option value="pengurus">Pengurus</option>
-      <option value="ketua">Ketua</option>
-      <option value="developer">Developer</option>
-    </select>
-  </div>
-  <button id="createUserBtn" type="button" class="submit-btn compact-btn">+ Buat Akun</button>
-  <div id="createUserMessage" class="form-message" hidden></div>
-</div>
+  </a>
 
-<div class="account-edit-head">
-  <div><strong>Akun Internal</strong><span>Monitor status akun dan lakukan tindakan administrasi.</span></div>
-  <div class="account-tools">
-    <select id="accountStatusFilter" class="user-filter"><option value="all">Semua akun</option><option value="active">Aktif</option><option value="inactive">Nonaktif</option></select>
-    <input id="userSearch" class="user-search" placeholder="Cari nama, email, UID, atau role...">
+  <div class="admin-actions">
+    <span class="admin-badge">DEVELOPER • SUPER ADMIN</span>
+    <button id="logoutBtn" class="logout-btn" type="button">Keluar</button>
   </div>
-</div>
-<div class="spark-note"><strong>Mode Gratis / Spark</strong><span>Nonaktifkan akun berlaku di ASPIRA: akun yang dinonaktifkan akan langsung ditolak saat login dan dikeluarkan dari dashboard. Penghapusan di sini menghapus profil Database, bukan akun Firebase Authentication.</span></div>
-<div class="account-summary">
-  <div><strong id="activeUserCount">0</strong><span>Aktif</span></div>
-  <div><strong id="inactiveUserCount">0</strong><span>Nonaktif</span></div>
-  <div><strong id="developerUserCount">0</strong><span>Developer</span></div>
-  <div><strong id="staffUserCount">0</strong><span>Pengurus + Ketua</span></div>
-</div>
+</header>
 
-<div id="userList" class="user-list"></div>
+<section class="admin-page">
 
-<div id="editUserModal" class="account-modal" hidden>
+  <div class="admin-heading">
+    <span class="eyebrow">ADMINISTRASI SISTEM</span>
+    <h1>Developer Console</h1>
+    <p>Kelola akun dan pantau kondisi sistem ASPIRA.</p>
+  </div>
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <span>Total Pengaduan</span>
+      <strong id="devTotal">0</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>Pengguna Internal</span>
+      <strong id="devUsers">0</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>Database</span>
+      <strong>ONLINE</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>Auth</span>
+      <strong>ONLINE</strong>
+    </div>
+
+  </div>
+
+  <section class="role-panel">
+
+    <div class="role-panel-head">
+      <div>
+        <span class="analytics-label">PENGGUNA</span>
+        <h2>Data Pengguna Internal</h2>
+        <p>Kelola akun dan hak akses pengguna ASPIRA.</p>
+      </div>
+    </div>
+
+    <div class="account-edit-head">
+
+      <div>
+        <strong>Akun Internal</strong>
+        <span>Kelola akun dan status pengguna.</span>
+      </div>
+
+      <div class="account-tools">
+
+        <select id="accountStatusFilter" class="user-filter">
+          <option value="all">Semua akun</option>
+          <option value="active">Aktif</option>
+          <option value="inactive">Nonaktif</option>
+        </select>
+
+        <input
+          id="userSearch"
+          class="user-search"
+          placeholder="Cari nama, email, UID, atau role..."
+        >
+
+      </div>
+
+    </div>
+
+    <div class="account-summary">
+
+      <div>
+        <strong id="activeUserCount">0</strong>
+        <span>Aktif</span>
+      </div>
+
+      <div>
+        <strong id="inactiveUserCount">0</strong>
+        <span>Nonaktif</span>
+      </div>
+
+      <div>
+        <strong id="developerUserCount">0</strong>
+        <span>Developer</span>
+      </div>
+
+      <div>
+        <strong id="staffUserCount">0</strong>
+        <span>Pengurus + Ketua</span>
+      </div>
+
+    </div>
+
+    <!-- DAFTAR AKUN -->
+    <div id="userList" class="user-list"></div>
+
+    <!-- AKSI AKUN -->
+    <div class="account-actions-bottom">
+
+      <button
+        id="refreshUsers"
+        type="button"
+        class="secondary-btn"
+      >
+        Refresh
+      </button>
+
+      <div class="account-create">
+
+        <div class="account-create-head">
+
+          <div>
+            <strong>Buat akun internal baru</strong>
+            <span>Akun akan dibuat untuk akses ke sistem ASPIRA.</span>
+          </div>
+
+          <span class="role-pill">SUPER ADMIN</span>
+
+        </div>
+
+        <div class="account-form-grid">
+
+          <input
+            id="newUserName"
+            placeholder="Nama lengkap"
+            autocomplete="name"
+          >
+
+          <input
+            id="newUserEmail"
+            placeholder="Email login"
+            type="email"
+            autocomplete="email"
+          >
+
+          <input
+            id="newUserPassword"
+            placeholder="Password sementara (min. 6 karakter)"
+            type="password"
+            autocomplete="new-password"
+          >
+
+          <select id="newUserRole">
+            <option value="pengurus">Pengurus</option>
+            <option value="ketua">Ketua</option>
+            <option value="developer">Developer</option>
+          </select>
+
+        </div>
+
+        <button
+          id="createUserBtn"
+          type="button"
+          class="submit-btn compact-btn"
+        >
+          + Buat Akun
+        </button>
+
+        <div
+          id="createUserMessage"
+          class="form-message"
+          hidden
+        ></div>
+
+      </div>
+
+    </div>
+
+    <!-- MODAL EDIT AKUN -->
+    <div id="editUserModal" class="account-modal" hidden>
+
+      <div class="account-modal-card">
+
+        <div class="account-modal-head">
+
+          <div>
+            <span class="analytics-label">EDIT AKUN</span>
+            <h2 id="editUserTitle">Pengguna</h2>
+          </div>
+
+          <button
+            id="closeEditUser"
+            type="button"
+            class="modal-close"
+          >
+            ×
+          </button>
+
+        </div>
+
+        <input id="editUserUid" type="hidden">
+
+        <label>
+          Nama
+          <input
+            id="editUserName"
+            autocomplete="name"
+          >
+        </label>
+
+        <label>
+          Email profil
+          <input
+            id="editUserEmail"
+            type="email"
+            autocomplete="email"
+          >
+        </label>
+
+        <label>
+          Role
+          <select id="editUserRole">
+            <option value="pengurus">Pengurus</option>
+            <option value="ketua">Ketua</option>
+            <option value="developer">Developer</option>
+          </select>
+        </label>
+
+        <div class="modal-actions">
+
+          <button
+            id="cancelEditUser"
+            type="button"
+            class="secondary-btn"
+          >
+            Batal
+          </button>
+
+          <button
+            id="updateUserBtn"
+            type="button"
+            class="submit-btn compact-btn"
+          >
+            Simpan Perubahan
+          </button>
+
+        </div>
+
+        <div
+          id="editUserMessage"
+          class="form-message"
+          hidden
+        ></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- LAPORAN -->
+  <section class="role-panel">
+
+    <div class="role-panel-head">
+
+      <div>
+        <span class="analytics-label">LAPORAN</span>
+        <h2>Akses Dashboard Pengaduan</h2>
+        <p>Buka dashboard pengurus untuk melihat laporan.</p>
+      </div>
+
+      <div class="role-links">
+
+        <a
+          class="secondary-btn role-link"
+          href="admin.html"
+        >
+          Buka Dashboard Pengurus →
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</section>
+</main>
+
+<script
+  type="module"
+  src="../js/developer.js"
+></script>
+
+<script
+  type="module"
+  src="../js/admin-logout.js"
+></script>
+
+<!-- MODAL TINDAKAN AKUN -->
+<div
+  id="accountActionModal"
+  class="account-modal"
+  hidden
+>
+
   <div class="account-modal-card">
+
     <div class="account-modal-head">
-      <div><span class="analytics-label">EDIT AKUN</span><h2 id="editUserTitle">Pengguna</h2></div>
-      <button id="closeEditUser" type="button" class="modal-close">×</button>
+
+      <div>
+        <span class="analytics-label">TINDAKAN AKUN</span>
+        <h2 id="actionUserTitle">Akun</h2>
+      </div>
+
+      <button
+        id="closeActionModal"
+        type="button"
+        class="modal-close"
+      >
+        ×
+      </button>
+
     </div>
-    <input id="editUserUid" type="hidden">
-    <label>Nama<input id="editUserName" autocomplete="name"></label>
-    <label>Email profil<input id="editUserEmail" type="email" autocomplete="email"></label>
-    <label>Role<select id="editUserRole"><option value="pengurus">Pengurus</option><option value="ketua">Ketua</option><option value="developer">Developer</option></select></label>
-    <div class="modal-actions">
-      <button id="cancelEditUser" type="button" class="secondary-btn">Batal</button>
-      <button id="updateUserBtn" type="button" class="submit-btn compact-btn">Simpan Perubahan</button>
+
+    <div
+      id="actionUserMeta"
+      class="action-user-meta"
+    ></div>
+
+    <div class="action-grid">
+
+      <button
+        id="actionToggle"
+        type="button"
+        class="action-btn"
+      >
+        Nonaktifkan Akun
+      </button>
+
+      <button
+        id="actionDelete"
+        type="button"
+        class="action-btn danger"
+      >
+        Hapus Data Profil
+      </button>
+
     </div>
-    <div id="editUserMessage" class="form-message" hidden></div>
+
+    <div
+      id="actionMessage"
+      class="form-message"
+      hidden
+    ></div>
+
   </div>
-</div></section>
-<section class="role-panel"><div class="role-panel-head"><div><span class="analytics-label">LAPORAN</span><h2>Akses Dashboard Pengaduan</h2><p>Developer dapat membuka dashboard operasional untuk pemeriksaan teknis.</p></div><div class="role-links"><a class="secondary-btn role-link" href="admin.html">Buka Dashboard Pengurus →</a></div></div></section>
-</section></main>
-<script type="module" src="../js/developer.js"></script><script type="module" src="../js/admin-logout.js"></script><div id="accountActionModal" class="account-modal" hidden>
-<div class="account-modal-card">
-<div class="account-modal-head"><div><span class="analytics-label">TINDAKAN AKUN</span><h2 id="actionUserTitle">Akun</h2></div><button id="closeActionModal" type="button" class="modal-close">×</button></div>
-<div id="actionUserMeta" class="action-user-meta"></div>
-<div class="action-grid">
-<button id="actionToggle" type="button" class="action-btn">Nonaktifkan Akun</button>
-<button id="actionDelete" type="button" class="action-btn danger">Hapus Data Profil</button>
+
 </div>
-<div id="actionMessage" class="form-message" hidden></div>
-</div></div>
-</body></html>
+
+</body>
+</html>
+```
